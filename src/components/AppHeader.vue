@@ -1,9 +1,10 @@
 <script>
+import { store } from '../store';
 export default{
   name:'AppHeader',
   data(){
     return{
-      
+      store,
     }
   }
 }
@@ -26,7 +27,7 @@ export default{
 
       <div>
         <ul>
-          <li><input type="text" placeholder="cerca"></li>
+          <li><input v-model="store.serch" type="text" placeholder="cerca"><button @click="$emit('serchCard')">Cerca</button></li>
           <li><link href="#">BAMBINI</li>
           <li><link href="#">notifiche</li>
           <li><link href="#">profilo</li>

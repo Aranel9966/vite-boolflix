@@ -1,6 +1,7 @@
 <script >
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
+import axios from 'axios';
 import { store } from './store';
 export default{
   data(){
@@ -8,6 +9,25 @@ export default{
       store,
 
     };
+  },
+  created() {
+      axios.get(this.store.APIhome).then((res) => {
+          // console.log(res.data.results[0].original_title);
+          this.store.cards = res.data.results;
+          // console.log(this.store.cards[0].poster_path);
+      });
+  },
+  methods:{
+    serch(){
+      let apiNewString = this.store.APIbase;
+      apiNewString += `&query=${this.store.serch}`; 
+
+      axios.get(apiNewString).then((res) => {
+        this.store.cards = res.data.results;
+        console.log(apiNewString);
+      });
+
+    }
   },
   components:{
     AppHeader,
@@ -18,7 +38,7 @@ export default{
 
 <template>
   <div>
-    <AppHeader></AppHeader>
+    <AppHeader @serchCard="serch()"></AppHeader>
     <AppMain></AppMain>
 
   </div>
