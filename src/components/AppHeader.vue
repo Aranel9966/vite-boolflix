@@ -5,6 +5,7 @@ export default{
   data(){
     return{
       store,
+      
     }
   }
 }
@@ -27,7 +28,14 @@ export default{
 
       <div>
         <ul>
-          <li><input v-model="store.serch" type="text" placeholder="cerca"><button @click="$emit('serchCard')">Cerca</button></li>
+          <li>
+            <select name="type" id="type" v-model="store.serchType" >
+              <option value="film">Film</option>
+              <option value="serie">Serie</option>
+            </select>
+            <input v-model="store.serch" type="text" placeholder="cerca">
+            <button @click="$emit('serchCard')">Cerca</button>
+          </li>
           <li><link href="#">BAMBINI</li>
           <li><link href="#">notifiche</li>
           <li><link href="#">profilo</li>

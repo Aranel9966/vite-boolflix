@@ -11,7 +11,7 @@ export default{
     };
   },
   created() {
-      axios.get(this.store.APIhome).then((res) => {
+      axios.get(this.store.APIbase + this.store.APIhome + this.store.APIfilm).then((res) => {
           // console.log(res.data.results[0].original_title);
           this.store.movies = res.data.results;
           console.log(this.store.movies);
@@ -20,19 +20,28 @@ export default{
   methods:{
     serch(){
       let apiNewString
-      if(this.store.serch==''){
-        apiNewString = this.store.APIhome;
-        // console.log(apiNewString);
-
-      }else{
-
-        apiNewString = this.store.APIbase;
+      
+      if(this.store.serchType=='serie' && this.store.serch!=''){
+        apiNewString=this.store.APIbase + this.store.APIsearch+this.store.APIserie
         apiNewString += `&query=${this.store.serch}`; 
-  
+        // console.log(apiNewString)
+      }else if(this.store.serchType=='serie' && this.store.serch==''){
+        apiNewString=this.store.APIbase + this.store.APIhome+this.store.APIserie
+
       }
+
+      if(this.store.serchType == 'film' && this.store.serch =='' ){
+        apiNewString = this.store.APIbase + this.store.APIhome + this.store.APIfilm;
+        // console.log(apiNewString);
+      }
+      else if(this.store.serchType == 'film' &&  this.store.serch != ''){
+        apiNewString = this.store.APIbase + this.store.APIsearch + this.store.APIfilm;
+        apiNewString += `&query=${this.store.serch}`; 
+      }
+      
       axios.get(apiNewString).then((res) => {
         this.store.movies = res.data.results;
-        // console.log(apiNewString);
+        console.log(res.data.results);
       });
 
     }

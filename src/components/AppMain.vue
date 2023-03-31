@@ -5,18 +5,16 @@ export default{
   data(){
     return{
         store,
-        ciao:'ciao'
+        
     }
   },
   methods:{
-    stars(prova){
-        for(let i =0;i< prova;i++){
-            console.log(this.ciao)
-            this.ciao 
-        }
-    }
+    // stars(prova){
+    //     for(let i =0;i< prova;i++){
+            
+    //     }
+    // }
   }
-  
 }
 </script>
 
@@ -25,15 +23,12 @@ export default{
       <div class="main-container">
             <div v-for=" movie in this.store.movies" class="inner-main">
                 <img :src="'https://image.tmdb.org/t/p/w400' + movie.poster_path "> 
-                <h2>{{ movie.title }}</h2> 
-                <small>({{ movie.original_title }})</small> 
-                <em>Lingua:{{ movie.original_language }}</em>  
-                {{ stars(movie.vote_average / 2) }} 
-                
+                <h2>{{ movie.title || movie.name}}</h2> 
+                <small>({{ movie.original_title || movie.original_name }})</small> 
+                <em>Lingua: {{ movie.original_language }}</em>  
+                {{ movie.vote_average  }}            
             </div>
-
         </div>
-    
   </div>
 </template>
 
@@ -52,7 +47,7 @@ export default{
     color: white;
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 300px;
     // width: calc(1200px / 6 - (20px ));
      img{
         height: 500px;
