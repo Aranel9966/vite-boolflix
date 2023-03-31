@@ -15,7 +15,7 @@ export default{
     <nav>
       <div>
         <ul>
-          <li><link href="#">logo</li>
+          <li><link href="#"><img src="https://image.tmdb.org/t/p/w200/wwemzKWzjKYJFfCeiB57q3r4Bcm.png" alt=""></li>
           <li><link href="#">Home</li>
           <li><link href="#">Serie TV</li>
           <li><link href="#">Film</li>
@@ -42,12 +42,18 @@ export default{
 nav{
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background-color: #1b1b1b;
   color: white;
   padding: 20px;
+  position: fixed;
+  width: 100%;
+  
 }
 ul{
   display: flex;
+  align-items: center;
+
   list-style-type: none;
   gap: 20px;
 }

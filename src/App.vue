@@ -13,18 +13,26 @@ export default{
   created() {
       axios.get(this.store.APIhome).then((res) => {
           // console.log(res.data.results[0].original_title);
-          this.store.cards = res.data.results;
-          // console.log(this.store.cards[0].poster_path);
+          this.store.movies = res.data.results;
+          console.log(this.store.movies);
       });
   },
   methods:{
     serch(){
-      let apiNewString = this.store.APIbase;
-      apiNewString += `&query=${this.store.serch}`; 
+      let apiNewString
+      if(this.store.serch==''){
+        apiNewString = this.store.APIhome;
+        // console.log(apiNewString);
 
+      }else{
+
+        apiNewString = this.store.APIbase;
+        apiNewString += `&query=${this.store.serch}`; 
+  
+      }
       axios.get(apiNewString).then((res) => {
-        this.store.cards = res.data.results;
-        console.log(apiNewString);
+        this.store.movies = res.data.results;
+        // console.log(apiNewString);
       });
 
     }
