@@ -30,6 +30,7 @@ export default{
         <ul>
           <li>
             <select name="type" id="type" v-model="store.serchType" >
+              <option value="all">Tutto</option>
               <option value="film">Film</option>
               <option value="serie">Serie</option>
             </select>
@@ -55,6 +56,7 @@ nav{
   color: white;
   padding: 20px;
   position: fixed;
+  z-index: 3;
   width: 100%;
   
 }
