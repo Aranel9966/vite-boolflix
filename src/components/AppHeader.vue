@@ -30,12 +30,11 @@ export default{
         <ul>
           <li>
             <i class="fas fa-search"></i>
-            <input v-model="store.serch" type="text" placeholder="Cerca">
+            <input v-model="store.serch" type="text" placeholder="Cerca" @keydown="$emit('serchCard')">
             <button @click="$emit('serchCard')">Cerca</button>
           </li>
-          <li><link href="#">BAMBINI</li>
-          <li><link href="#">notifiche</li>
-          <li><link href="#">profilo</li>
+          <li><link href="#"><i class="fa-solid fa-bell"></i></li>
+          <li><link href="#"><i class="fa-solid fa-user"></i></li>
         </ul>
       </div>
     </nav>
@@ -55,8 +54,10 @@ nav{
   z-index: 3;
   width: 100%;
   input{
-    border-radius: 8px;
-  padding: 4px;
+    padding: 6px;
+    background-color: #030303;
+    color: white;
+    border:1px solid white;
 
   }
   button{
@@ -77,6 +78,7 @@ nav{
       align-items: center;
       &:hover{
         color: #dc1a28;
+        cursor: pointer;
       }
     }
   }
