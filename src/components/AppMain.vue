@@ -14,8 +14,13 @@ export default{
     lenguage(leng){
         if(leng == 'en'){
             leng='gb'
+        }else if(leng =='ja'){
+            leng='jp'
+        }else if(leng == 'zh'){
+            leng='cn'
+        }else if(leng == 'ko'){
+            leng='kr'
         }
-        console.log(leng)
         return leng;
     }
   }
@@ -23,18 +28,32 @@ export default{
 </script>
 
 <template>
-  <div>
+  <div class="container">
+      <h1>Film</h1>
       <div class="main-container">
             <div v-for=" movie in this.store.movies" class="inner-main">
                 <div class="img-inner">
                     <img :src="'https://image.tmdb.org/t/p/w400' + movie.poster_path "> 
                 </div>
                 <div class="text-inner">
-
-                    <h2>{{ movie.title || movie.name}}</h2> 
-                    <small>Titolo originale: ({{ movie.original_title || movie.original_name }})</small> 
+                    <h2>{{ movie.title}}</h2> 
+                    <small>Titolo originale: ({{ movie.original_title }})</small> 
                      lingua: <span :class = "`fi fi-${lenguage(movie.original_language)} fis `" > </span>
                     {{ movie.vote_average  }}            
+                </div>
+            </div>
+        </div>
+        <h1>Serie</h1>
+        <div class="main-container">
+            <div v-for=" serie in this.store.series" class="inner-main">
+                <div class="img-inner">
+                    <img :src="'https://image.tmdb.org/t/p/w400' + serie.poster_path "> 
+                </div>
+                <div class="text-inner">
+                    <h2>{{serie.name}}</h2> 
+                    <small>Titolo originale: ({{ serie.original_name }})</small> 
+                     lingua: <span :class = "`fi fi-${lenguage(serie.original_language)} fis `" > </span>
+                    {{ serie.vote_average  }}            
                 </div>
             </div>
         </div>
@@ -42,43 +61,50 @@ export default{
 </template>
 
 <style scoped lang="scss">
-.main-container{
-    padding-top: 100px;
-    background-color: #434343;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.inner-main{
-    // padding: 5px;
-    color: white;
-    display: flex;
-    // flex-direction: column;
-    // width: calc(1200px / 6 - (20px ));
-    position: relative;
-    .img-inner{
-        
-        img{
-            object-fit:cover;
-            height: 400px;
-    width: 300px;
+.container{
+    padding: 90px 0 0 0;
 
-        } 
+    h1{
+        padding: 20px;
+        color: white;
+        background-color: #434343;
+
     }
-    .text-inner{
-        position: absolute;
-        bottom: 0;
+    .main-container{
+        padding: 0 0 20px 20px;
+        background-color: #434343;
+        width: 100%;
         display: flex;
-        flex-direction: column;
-        display: none;
-        padding: 10px;
+        flex-direction: row;
+        justify-content: start;
+        overflow-x: auto;
     }
-    &:hover .text-inner{
+    .inner-main{
+        color: white;
         display: flex;
+        position: relative;
+        .img-inner{       
+            img{
+                object-fit:cover;
+                height: 400px;
+                width: 300px;            
+            }        
+        }
+        .text-inner{
+            position: absolute;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            display: none;
+            padding: 10px;       
+        }
+        &:hover .text-inner{
+            display: flex;
+        }
+        &:hover img{
+            opacity: 0.30;
+        }
     }
 }
-
 
 </style>

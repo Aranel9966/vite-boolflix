@@ -29,11 +29,6 @@ export default{
       <div>
         <ul>
           <li>
-            <select name="type" id="type" v-model="store.serchType" >
-              <option value="all">Tutto</option>
-              <option value="film">Film</option>
-              <option value="serie">Serie</option>
-            </select>
             <input v-model="store.serch" type="text" placeholder="cerca">
             <button @click="$emit('serchCard')">Cerca</button>
           </li>
