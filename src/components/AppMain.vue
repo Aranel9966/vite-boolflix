@@ -13,16 +13,18 @@ export default{
     
     lenguage(leng){
         if(leng == 'en'){
-            leng='gb'
-        }else if(leng =='ja'){
-            leng='jp'
+            leng = 'gb'
+        }else if(leng == 'ja'){
+            leng = 'jp'
         }else if(leng == 'zh'){
-            leng='cn'
+            leng = 'cn'
         }else if(leng == 'ko'){
-            leng='kr'
+            leng = 'kr'
         }
         return leng;
-    }
+    },
+
+    
   }
 }
 </script>
@@ -39,7 +41,14 @@ export default{
                     <h2>{{ movie.title}}</h2> 
                     <small>Titolo originale: ({{ movie.original_title }})</small> 
                      lingua: <span :class = "`fi fi-${lenguage(movie.original_language)} fis `" > </span>
-                    {{ movie.vote_average  }}            
+                     <div class="vote">
+                         <i v-for="star in Math.floor(movie.vote_average/2) " class="fa-solid fa-star"></i>
+                         <i v-if="Math.floor(movie.vote_average/2) < 5" class="fa-regular fa-star"></i>
+                         <i v-if="Math.floor(movie.vote_average/2) < 4" class="fa-regular fa-star"></i>
+                         <i v-if="Math.floor(movie.vote_average/2) < 3" class="fa-regular fa-star"></i>
+                         <i v-if="Math.floor(movie.vote_average/2) < 2" class="fa-regular fa-star"></i>
+                         <i v-if="Math.floor(movie.vote_average/2) < 1" class="fa-regular fa-star"></i>
+                     </div>
                 </div>
             </div>
         </div>
@@ -53,7 +62,14 @@ export default{
                     <h2>{{serie.name}}</h2> 
                     <small>Titolo originale: ({{ serie.original_name }})</small> 
                      lingua: <span :class = "`fi fi-${lenguage(serie.original_language)} fis `" > </span>
-                    {{ serie.vote_average  }}            
+                     <div class="vote">
+                         <i v-for="star in Math.floor(serie.vote_average/2) " class="fa-solid fa-star"></i>
+                         <i v-if="Math.floor(serie.vote_average/2) < 5" class="fa-regular fa-star"></i>
+                         <i v-if="Math.floor(serie.vote_average/2) < 4" class="fa-regular fa-star"></i>
+                         <i v-if="Math.floor(serie.vote_average/2) < 3" class="fa-regular fa-star"></i>
+                         <i v-if="Math.floor(serie.vote_average/2) < 2" class="fa-regular fa-star"></i>
+                         <i v-if="Math.floor(serie.vote_average/2) < 1" class="fa-regular fa-star"></i>
+                     </div>           
                 </div>
             </div>
         </div>
@@ -63,12 +79,10 @@ export default{
 <style scoped lang="scss">
 .container{
     padding: 90px 0 0 0;
-
     h1{
         padding: 20px;
         color: white;
         background-color: #434343;
-
     }
     .main-container{
         padding: 0 0 20px 20px;
@@ -86,7 +100,7 @@ export default{
         .img-inner{       
             img{
                 object-fit:cover;
-                height: 400px;
+                height: 450px;
                 width: 300px;            
             }        
         }
@@ -96,7 +110,13 @@ export default{
             display: flex;
             flex-direction: column;
             display: none;
-            padding: 10px;       
+            padding: 10px;     
+            .vote{
+                padding: 5px;
+                display: flex;
+                flex-direction: row;
+                color: gold;
+            }  
         }
         &:hover .text-inner{
             display: flex;

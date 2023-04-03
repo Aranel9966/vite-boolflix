@@ -29,7 +29,8 @@ export default{
       <div>
         <ul>
           <li>
-            <input v-model="store.serch" type="text" placeholder="cerca">
+            <i class="fas fa-search"></i>
+            <input v-model="store.serch" type="text" placeholder="Cerca">
             <button @click="$emit('serchCard')">Cerca</button>
           </li>
           <li><link href="#">BAMBINI</li>
@@ -42,7 +43,7 @@ export default{
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 nav{
   display: flex;
   justify-content: space-between;
@@ -53,13 +54,31 @@ nav{
   position: fixed;
   z-index: 3;
   width: 100%;
-  
-}
-ul{
-  display: flex;
-  align-items: center;
+  input{
+    border-radius: 8px;
+  padding: 4px;
 
-  list-style-type: none;
-  gap: 20px;
+  }
+  button{
+    border-radius: 8px;
+    background-color:#dc1a28 ;
+    color:white ;
+    padding: 2px 5px;
+  }
+  
+  ul{
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    gap: 20px;
+    li{
+      gap: 5px;
+      display: flex;
+      align-items: center;
+      &:hover{
+        color: #dc1a28;
+      }
+    }
+  }
 }
 </style>
