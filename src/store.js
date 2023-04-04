@@ -13,5 +13,6 @@ export const store = reactive({
 
   APIserie: "/tv?language=it-IT&api_key=e789f8acd81f7b9e6d56be313b261d58",
   APIfilm: "/movie?language=it-IT&api_key=e789f8acd81f7b9e6d56be313b261d58",
-  //   APIall: "/multi?language=it-IT&api_key=e789f8acd81f7b9e6d56be313b261d58",
+  APICast: [],
+  id: "",
 });

@@ -14,12 +14,17 @@ export default{
   created() {
       axios.get(this.store.APIbase + this.store.APIhome + this.store.APIfilm).then((res) => {
           this.store.movies = res.data.results;
-          console.log(this.store.movies);
       });
       axios.get(this.store.APIbase + this.store.APIhome + this.store.APIserie).then((res) => {
         this.store.series = res.data.results;
-          console.log(this.store.movies);
+        console.log(this.store.series);
+
       });
+      // axios.get(`https://api.themoviedb.org/3/movie/76600/credits?api_key=e789f8acd81f7b9e6d56be313b261d58&language=it-IT`).then((res) => {
+      //     this.store.APICast = res.data.cast[0].name;
+      //     console.log(res.data.cast[0].name);
+      //     console.log(res.data.cast[1].name);
+      // });
   },
   methods:{
     serch(){
@@ -29,7 +34,7 @@ export default{
     },
     serchMovie(){
       
-      if(this.store.serch =='' ){
+      if(this.store.serch == '' ){
             this.apiNewString = this.store.APIbase + this.store.APIhome + this.store.APIfilm;
           }else {
             this.apiNewString = this.store.APIbase + this.store.APIsearch + this.store.APIfilm;
@@ -43,7 +48,7 @@ export default{
 
     serchSeries(){
       
-      if(this.store.serch =='' ){
+      if(this.store.serch == '' ){
             this.apiNewString = this.store.APIbase + this.store.APIhome + this.store.APIserie;
           }else {
             this.apiNewString = this.store.APIbase + this.store.APIsearch + this.store.APIserie;
@@ -53,7 +58,20 @@ export default{
           this.store.series = res.data.results;
           console.log(res.data.results);
         });
+    },
+    castList(){
+      axios.get(`https://api.themoviedb.org/3/movie/${this.store.id}/credits?api_key=e789f8acd81f7b9e6d56be313b261d58&language=it-IT`).then((res) => {
+          this.store.APICast = res.data.cast;
+          console.log(this.store.APICast);
+      });
+    },
+    castListS(){
+      axios.get(`https://api.themoviedb.org/3/tv/${this.store.id}/season/1/credits?api_key=e789f8acd81f7b9e6d56be313b261d58&language=it-IT`).then((res) => {
+          this.store.APICast = res.data.cast;
+          console.log(this.store.APICast);
+      });
     }
+
   },
   components:{
     AppHeader,
@@ -65,8 +83,7 @@ export default{
 <template>
   <div>
     <AppHeader @serchCard="serch()"></AppHeader>
-    <AppPreview></AppPreview>
-    <AppMain></AppMain>
+    <AppMain @castList="castList()" @castListS="castListS()"></AppMain>
 
   </div>
     

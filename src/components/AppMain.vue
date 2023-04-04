@@ -24,9 +24,12 @@ export default{
     },
     screenview(i){
         this.screen=this.store.movies[i]
+        this.store.id = this.store.movies[i].id
     },
     screenviewS(i){
         this.screen=this.store.series[i]
+        this.store.id = this.store.series[i].id
+
     }
   }
 }
@@ -38,22 +41,32 @@ export default{
         <div class="img-inner" v-if="this.screen!=''">
             <img :src="'https://image.tmdb.org/t/p/w1280' + this.screen.backdrop_path ">
         </div>
-
         <div class="text-screenview" >
             <h2 v-if="this.screen.title">{{ this.screen.title}}</h2> 
             <h2 v-else>{{ this.screen.name}}</h2> 
             <small v-if="this.screen.original_title">Titolo originale: ({{ this.screen.original_title }})</small> 
             <small v-else>Titolo originale: ({{ this.screen.original_name }})</small> 
-            <div>Lingua: <span :class = "`fi fi-${lenguage(this.screen.original_language)} fis `" > </span></div>
+            <div>Lingua: <span :class = "`fi fi-${lenguage(this.screen.original_language)} fis `" ></span></div>
             <div class="vote">
                 <i v-for="star in Math.floor(this.screen.vote_average/2) " class="fa-solid fa-star"></i><i v-for="star in 5 - Math.floor(this.screen.vote_average/2)" class="fa-regular fa-star"></i>
             </div>
+            <div>
+                Cast:
+                <ul>
+                    <li v-for="actor in 5">
+                        <em>
+                            {{this.store.APICast[actor-1].name}}
+                        </em>
+                    </li>
+                </ul>
+            </div>
+
         </div>         
     </div>
     
     <h1>Film</h1>
     <div class="main-container">
-            <div v-for=" (movie,index) in this.store.movies" class="inner-main" @click="screenview(index)" >
+            <div v-for=" (movie,index) in this.store.movies" class="inner-main" @click="screenview(index),$emit('castList')" >
                 <div class="img-inner">
                     <img :src="'https://image.tmdb.org/t/p/w400' + movie.poster_path "> 
                 </div>
@@ -69,7 +82,7 @@ export default{
     </div>
     <h1>Serie</h1>
     <div class="main-container">
-        <div v-for=" (serie,index) in this.store.series" class="inner-main" @click="screenviewS(index)" >
+        <div v-for=" (serie,index) in this.store.series" class="inner-main" @click="screenviewS(index),$emit('castListS')" >
             <div class="img-inner">
                 <img :src="'https://image.tmdb.org/t/p/w400' + serie.poster_path "> 
             </div>
@@ -99,6 +112,7 @@ export default{
         padding: 0 0 20px 20px;
         width: 100%;
         display: flex;
+        gap: 5px;
         flex-direction: row;
         justify-content: start;
         overflow-x: auto;
@@ -114,7 +128,7 @@ export default{
             background: #b30000; 
             }
         &::-webkit-scrollbar{
-            height: 10px;
+            height: 5px;
         }
         
     }
@@ -123,11 +137,14 @@ export default{
         color: white;
         display: flex;
         position: relative;
+        height: 450px;
+        border: 1px solid #b30000;
+
         .img-inner{       
             img{
+                width: 300px;          
                 object-fit:cover;
-                height: 450px;
-                width: 300px;            
+                height: 100%;  
             }        
         }
         .text-inner{
@@ -160,9 +177,9 @@ export default{
         position: absolute;
         top: 300px;
         font-size: 35px;
-        padding: 10px;
+        padding: 15px;
         .vote{
-            padding: 5px;
+            padding: 25px;
             display: flex;
             flex-direction: row;
             color: gold;
@@ -171,8 +188,16 @@ export default{
     img{
         width: 100%; 
         object-fit:cover;
-        height: 500px;
+        object-position: top;
+        height: 600px;
         opacity: 0.5;
+        
+    }
+    ul{
+        padding-left: 25px;
+        li{
+            font-size: small;
+        }
     }
 }
 
