@@ -6,7 +6,7 @@ export default{
   data(){
     return{
         store,
-        screen:''
+        screen:'',
     }
   },
   methods:{
@@ -24,6 +24,9 @@ export default{
     },
     screenview(i){
         this.screen=this.store.movies[i]
+    },
+    screenviewS(i){
+        this.screen=this.store.series[i]
     }
   }
 }
@@ -32,23 +35,22 @@ export default{
 <template>
   <div class="container">
     <div v-if="this.screen" class="screenview">
-        <div class="img-inner">
+        <div class="img-inner" v-if="this.screen!=''">
             <img :src="'https://image.tmdb.org/t/p/w1280' + this.screen.backdrop_path ">
         </div>
+
         <div class="text-screenview" >
-            <h2>{{ this.screen.title}}</h2> 
-            <small>Titolo originale: ({{ this.screen.original_title }})</small> 
+            <h2 v-if="this.screen.title">{{ this.screen.title}}</h2> 
+            <h2 v-else>{{ this.screen.name}}</h2> 
+            <small v-if="this.screen.original_title">Titolo originale: ({{ this.screen.original_title }})</small> 
+            <small v-else>Titolo originale: ({{ this.screen.original_name }})</small> 
             <div>Lingua: <span :class = "`fi fi-${lenguage(this.screen.original_language)} fis `" > </span></div>
             <div class="vote">
-                <i v-for="star in Math.floor(this.screen.vote_average/2) " class="fa-solid fa-star"></i>
-                <i v-if="Math.floor(this.screen.vote_average/2) < 5" class="fa-regular fa-star"></i>
-                <i v-if="Math.floor(this.screen.vote_average/2) < 4" class="fa-regular fa-star"></i>
-                <i v-if="Math.floor(this.screen.vote_average/2) < 3" class="fa-regular fa-star"></i>
-                <i v-if="Math.floor(this.screen.vote_average/2) < 2" class="fa-regular fa-star"></i>
-                <i v-if="Math.floor(this.screen.vote_average/2) < 1" class="fa-regular fa-star"></i>
+                <i v-for="star in Math.floor(this.screen.vote_average/2) " class="fa-solid fa-star"></i><i v-for="star in 5 - Math.floor(this.screen.vote_average/2)" class="fa-regular fa-star"></i>
             </div>
         </div>         
     </div>
+    
     <h1>Film</h1>
     <div class="main-container">
             <div v-for=" (movie,index) in this.store.movies" class="inner-main" @click="screenview(index)" >
@@ -60,19 +62,14 @@ export default{
                     <small>Titolo originale: ({{ movie.original_title }})</small> 
                     <div>Lingua: <span :class = "`fi fi-${lenguage(movie.original_language)} fis `" > </span></div>
                      <div class="vote">
-                         <i v-for="star in Math.floor(movie.vote_average/2) " class="fa-solid fa-star"></i>
-                         <i v-if="Math.floor(movie.vote_average/2) < 5" class="fa-regular fa-star"></i>
-                         <i v-if="Math.floor(movie.vote_average/2) < 4" class="fa-regular fa-star"></i>
-                         <i v-if="Math.floor(movie.vote_average/2) < 3" class="fa-regular fa-star"></i>
-                         <i v-if="Math.floor(movie.vote_average/2) < 2" class="fa-regular fa-star"></i>
-                         <i v-if="Math.floor(movie.vote_average/2) < 1" class="fa-regular fa-star"></i>
+                        <i v-for="star in Math.floor(movie.vote_average/2) " class="fa-solid fa-star"></i><i v-for="star in 5 - Math.floor(movie.vote_average/2)" class="fa-regular fa-star"></i>
                      </div>
                 </div>
             </div>
     </div>
     <h1>Serie</h1>
     <div class="main-container">
-        <div v-for=" serie in this.store.series" class="inner-main">
+        <div v-for=" (serie,index) in this.store.series" class="inner-main" @click="screenviewS(index)" >
             <div class="img-inner">
                 <img :src="'https://image.tmdb.org/t/p/w400' + serie.poster_path "> 
             </div>
@@ -81,12 +78,7 @@ export default{
                 <small>Titolo originale: ({{ serie.original_name }})</small> 
                 <div>Lingua: <span :class = "`fi fi-${lenguage(serie.original_language)} fis `" > </span></div>
                     <div class="vote">
-                        <i v-for="star in Math.floor(serie.vote_average/2) " class="fa-solid fa-star"></i>
-                        <i v-if="Math.floor(serie.vote_average/2) < 5" class="fa-regular fa-star"></i>
-                        <i v-if="Math.floor(serie.vote_average/2) < 4" class="fa-regular fa-star"></i>
-                        <i v-if="Math.floor(serie.vote_average/2) < 3" class="fa-regular fa-star"></i>
-                        <i v-if="Math.floor(serie.vote_average/2) < 2" class="fa-regular fa-star"></i>
-                        <i v-if="Math.floor(serie.vote_average/2) < 1" class="fa-regular fa-star"></i>
+                        <i v-for="star in Math.floor(serie.vote_average/2) " class="fa-solid fa-star"></i><i v-for="star in 5 - Math.floor(serie.vote_average/2)" class="fa-regular fa-star"></i>
                     </div>           
             </div>
         </div>
@@ -110,7 +102,23 @@ export default{
         flex-direction: row;
         justify-content: start;
         overflow-x: auto;
+        &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey; 
+            border-radius: 10px;
+            }
+        &::-webkit-scrollbar-thumb {
+            background: red; 
+            border-radius: 10px;
+            }
+        &::-webkit-scrollbar-thumb:hover {
+            background: #b30000; 
+            }
+        &::-webkit-scrollbar{
+            height: 10px;
+        }
+        
     }
+
     .inner-main{
         color: white;
         display: flex;
