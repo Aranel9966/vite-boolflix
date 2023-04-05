@@ -3,8 +3,10 @@ import { reactive } from "vue";
 export const store = reactive({
   movies: [],
   series: [],
+  APICast: [],
 
   serch: "",
+  id: "",
 
   APIbase: "https://api.themoviedb.org/3",
 
@@ -13,6 +15,7 @@ export const store = reactive({
 
   APIserie: "/tv?language=it-IT&api_key=e789f8acd81f7b9e6d56be313b261d58",
   APIfilm: "/movie?language=it-IT&api_key=e789f8acd81f7b9e6d56be313b261d58",
-  APICast: [],
-  id: "",
+  //   APIgenre:
+  //     "https://api.themoviedb.org/3/genre/movie/list?api_key=e789f8acd81f7b9e6d56be313b261d58&language=it-IT",
+  //   genre: [],
 });

@@ -16,10 +16,10 @@ export default{
     <nav>
       <div>
         <ul>
-          <li><link href="#"><img src="https://image.tmdb.org/t/p/w200/wwemzKWzjKYJFfCeiB57q3r4Bcm.png" alt=""></li>
-          <li><link href="#">Home</li>
-          <li><link href="#">Serie TV</li>
-          <li><link href="#">Film</li>
+          <li @click="$emit('home')"><link href="#"><img src="https://image.tmdb.org/t/p/w200/wwemzKWzjKYJFfCeiB57q3r4Bcm.png" alt=""></li>
+          <li @click="$emit('home')"><link href="#">Home</li>
+          <li @click="$emit('serie')"><link href="#">Serie TV</li>
+          <li @click="$emit('film')"><link href="#">Film</li>
           <li><link href="#">Originali</li>
           <li><link href="#">Aggiunti di recente</li>
           <li><link href="#">La mia lista</li>

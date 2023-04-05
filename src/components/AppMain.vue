@@ -10,6 +10,7 @@ export default{
     }
   },
   methods:{
+    //metodo per gestire le lingue 
     lenguage(leng){
         if(leng == 'en'){
             leng = 'gb'
@@ -22,6 +23,7 @@ export default{
         }
         return leng;
     },
+    // metodi per settare lo screen e per prendere l'id
     screenview(i){
         this.screen=this.store.movies[i]
         this.store.id = this.store.movies[i].id
@@ -29,7 +31,6 @@ export default{
     screenviewS(i){
         this.screen=this.store.series[i]
         this.store.id = this.store.series[i].id
-
     }
   }
 }
@@ -37,6 +38,7 @@ export default{
 
 <template>
   <div class="container">
+    <!-- gestione dello screen -->
     <div v-if="this.screen" class="screenview">
         <div class="img-inner" v-if="this.screen!=''">
             <img :src="'https://image.tmdb.org/t/p/w1280' + this.screen.backdrop_path ">
@@ -47,21 +49,36 @@ export default{
             <small v-if="this.screen.original_title">Titolo originale: ({{ this.screen.original_title }})</small> 
             <small v-else>Titolo originale: ({{ this.screen.original_name }})</small> 
             <div>Lingua: <span :class = "`fi fi-${lenguage(this.screen.original_language)} fis `" ></span></div>
+             <!-- v-for per gestire le stelline della votazione -->
             <div class="vote">
                 <i v-for="star in Math.floor(this.screen.vote_average/2) " class="fa-solid fa-star"></i><i v-for="star in 5 - Math.floor(this.screen.vote_average/2)" class="fa-regular fa-star"></i>
             </div>
-            <div>
-                Cast:
-                <ul>
-                    <li v-for="actor in this.store.APICast.slice(0,5)"  >
-                        <em>{{actor.name}}</em>
-                    </li>
-                </ul>
+            <div class="details-text">
+                <div>
+                    Cast:
+                    <ul>
+                <!-- v-for per gestire nome attori -->
+                        <li v-for="actor in this.store.APICast.slice(0,5)"  >
+                            <em>{{actor.name}}</em>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- tentativo di gestire i generi -->
+                <!-- <div>
+                    Generi:
+                    <ul>
+                        <li v-for="genre in this.store.movies[0].genre_ids"  >
+                            <em>{{genre}}</em>
+                        </li>
+                    </ul>
+                </div> -->
             </div>
 
         </div>         
     </div>
-    <h1 v-if="!this.store.movies.length">OPS Non trovato!!!</h1>
+    <!-- gestione della lista film -->
+    <h1 v-if="!this.store.movies.length && !this.store.series.length">OPS Non trovato!!!</h1>
     <h1 v-if="this.store.movies.length">Film</h1>
     <div class="main-container">
         <div v-for=" (movie,index) in this.store.movies" class="inner-main" @click="screenview(index),$emit('castList')" >
@@ -78,6 +95,7 @@ export default{
             </div>
         </div>
     </div>
+    <!-- gestione della lista serie -->
     <h1 v-if="this.store.series.length">Serie</h1>
     <div class="main-container">
         <div v-for=" (serie,index) in this.store.series" class="inner-main" @click="screenviewS(index),$emit('castListS')" >
@@ -198,5 +216,8 @@ export default{
         }
     }
 }
-
+.details-text{
+    display: flex;
+    gap: 20px;
+}
 </style>
