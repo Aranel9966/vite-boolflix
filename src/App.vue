@@ -20,11 +20,7 @@ export default{
         console.log(this.store.series);
 
       });
-      // axios.get(`https://api.themoviedb.org/3/movie/76600/credits?api_key=e789f8acd81f7b9e6d56be313b261d58&language=it-IT`).then((res) => {
-      //     this.store.APICast = res.data.cast[0].name;
-      //     console.log(res.data.cast[0].name);
-      //     console.log(res.data.cast[1].name);
-      // });
+
   },
   methods:{
     serch(){

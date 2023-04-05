@@ -53,34 +53,32 @@ export default{
             <div>
                 Cast:
                 <ul>
-                    <li v-for="actor in 5">
-                        <em>
-                            {{this.store.APICast[actor-1].name}}
-                        </em>
+                    <li v-for="actor in this.store.APICast.slice(0,5)"  >
+                        <em>{{actor.name}}</em>
                     </li>
                 </ul>
             </div>
 
         </div>         
     </div>
-    
-    <h1>Film</h1>
+    <h1 v-if="!this.store.movies.length">OPS Non trovato!!!</h1>
+    <h1 v-if="this.store.movies.length">Film</h1>
     <div class="main-container">
-            <div v-for=" (movie,index) in this.store.movies" class="inner-main" @click="screenview(index),$emit('castList')" >
-                <div class="img-inner">
-                    <img :src="'https://image.tmdb.org/t/p/w400' + movie.poster_path "> 
-                </div>
-                <div class="text-inner">
-                    <h2>{{ movie.title}}</h2> 
-                    <small>Titolo originale: ({{ movie.original_title }})</small> 
-                    <div>Lingua: <span :class = "`fi fi-${lenguage(movie.original_language)} fis `" > </span></div>
-                     <div class="vote">
-                        <i v-for="star in Math.floor(movie.vote_average/2) " class="fa-solid fa-star"></i><i v-for="star in 5 - Math.floor(movie.vote_average/2)" class="fa-regular fa-star"></i>
-                     </div>
-                </div>
+        <div v-for=" (movie,index) in this.store.movies" class="inner-main" @click="screenview(index),$emit('castList')" >
+            <div class="img-inner">
+                <img :src="'https://image.tmdb.org/t/p/w400' + movie.poster_path "> 
             </div>
+            <div class="text-inner">
+                <h2>{{ movie.title}}</h2> 
+                <small>Titolo originale: ({{ movie.original_title }})</small> 
+                <div>Lingua: <span :class = "`fi fi-${lenguage(movie.original_language)} fis `" > </span></div>
+                    <div class="vote">
+                        <i v-for="star in Math.floor(movie.vote_average/2) " class="fa-solid fa-star"></i><i v-for="star in 5 - Math.floor(movie.vote_average/2)" class="fa-regular fa-star"></i>
+                    </div>
+            </div>
+        </div>
     </div>
-    <h1>Serie</h1>
+    <h1 v-if="this.store.series.length">Serie</h1>
     <div class="main-container">
         <div v-for=" (serie,index) in this.store.series" class="inner-main" @click="screenviewS(index),$emit('castListS')" >
             <div class="img-inner">
@@ -90,9 +88,9 @@ export default{
                 <h2>{{serie.name}}</h2> 
                 <small>Titolo originale: ({{ serie.original_name }})</small> 
                 <div>Lingua: <span :class = "`fi fi-${lenguage(serie.original_language)} fis `" > </span></div>
-                    <div class="vote">
-                        <i v-for="star in Math.floor(serie.vote_average/2) " class="fa-solid fa-star"></i><i v-for="star in 5 - Math.floor(serie.vote_average/2)" class="fa-regular fa-star"></i>
-                    </div>           
+                <div class="vote">
+                    <i v-for="star in Math.floor(serie.vote_average/2) " class="fa-solid fa-star"></i><i v-for="star in 5 - Math.floor(serie.vote_average/2)" class="fa-regular fa-star"></i>
+                </div>           
             </div>
         </div>
     </div>
