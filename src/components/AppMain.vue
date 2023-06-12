@@ -63,16 +63,6 @@ export default{
                         </li>
                     </ul>
                 </div>
-
-                <!-- tentativo di gestire i generi -->
-                <!-- <div>
-                    Generi:
-                    <ul>
-                        <li v-for="genre in this.store.movies[0].genre_ids"  >
-                            <em>{{genre}}</em>
-                        </li>
-                    </ul>
-                </div> -->
             </div>
 
         </div>         
@@ -132,33 +122,32 @@ export default{
         flex-direction: row;
         justify-content: start;
         overflow-x: auto;
-        &::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 5px grey; 
-            border-radius: 10px;
-            }
-        &::-webkit-scrollbar-thumb {
-            background: red; 
-            border-radius: 10px;
-            }
-        &::-webkit-scrollbar-thumb:hover {
-            background: #b30000; 
-            }
         &::-webkit-scrollbar{
             height: 5px;
         }
-        
+        // &::-webkit-scrollbar-track {
+        //     box-shadow: inset 0 0 5px grey; 
+        //     border-radius: 10px;
+        //     }
+        // &::-webkit-scrollbar-thumb {
+        //     background: red; 
+        //     border-radius: 10px;
+        //     }
+        // &::-webkit-scrollbar-thumb:hover {
+        //     background: #b30000; 
+        //     }
     }
 
     .inner-main{
         color: white;
         display: flex;
         position: relative;
-        height: 450px;
+        height: 200px;
         border: 1px solid #b30000;
 
         .img-inner{       
             img{
-                width: 300px;          
+                width: 130px;          
                 object-fit:cover;
                 height: 100%;  
             }        
